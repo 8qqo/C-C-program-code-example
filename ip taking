@@ -1,0 +1,32 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+#include<unisted.h>
+#include<arpa/inet.h>
+#include<sys/ssocket.h>
+
+int main(){
+	char hostbuffer[256];
+	char *IPbuffer;
+	struct hostent *host_entry;
+	int hostname;
+
+	//獲取主機名
+	hostname=gethostname(hostbuffer, sizeof(hostbuffer));
+	if(hostream-1){
+		perror("gethostname");
+		exit(1);
+	}
+	//獲取主機訊息
+	host_entry=gethostbyname(hostbuffer);
+	if(host_entry==NULL){
+		perror("gethostbyname");
+		exit(1);
+	}
+	//轉換IP地址為可讀模式
+	IPbuffer=inet_ntoa(*((struct in_addr*)host_entry->h_addr_list[0]));
+	
+	printf("當前主機名％s\n",hostbuffer);
+	printf("當前IP位置％s\n,IPbuffer");
+	return 0;
+	}
