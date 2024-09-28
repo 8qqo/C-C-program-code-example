@@ -1,33 +1,36 @@
-//This is C language
-#include<stdio.h>
-#include<stdlib.h>
-#include<string.h>
-#include<unisted.h>
-#include<arpa/inet.h>
-#include<sys/ssocket.h>
+#include <stdio.h>
+#include <netdb.h>
+#include <arpa/inet.h>
+#include <unistd.h>
 
-int main(){
-	char hostbuffer[256];
-	char *IPbuffer;
-	struct hostent *host_entry;
-	int hostname;
+int main() {
+    char hostbuffer[256];
+    char *IPbuffer;
+    struct hostent *host_entry;
 
-	//獲取主機名
-	hostname=gethostname(hostbuffer, sizeof(hostbuffer));
-	if(hostream-1){
-		perror("gethostname");
-		exit(1);
-	}
-	//獲取主機訊息
-	host_entry=gethostbyname(hostbuffer);
-	if(host_entry==NULL){
-		perror("gethostbyname");
-		exit(1);
-	}
-	//轉換IP地址為可讀模式
-	IPbuffer=inet_ntoa(*((struct in_addr*)host_entry->h_addr_list[0]));
-	
-	printf("當前主機名％s\n",hostbuffer);
-	printf("當前IP位置％s\n,IPbuffer");
-	return 0;
-	}
+    // 獲取本地主機名
+    if (gethostname(hostbuffer, sizeof(hostbuffer)) == -1) {
+        perror("gethostname failed");
+        return 1;
+    }
+
+    // 使用主機名獲取 host_entry 结構體
+    host_entry = gethostbyname(hostbuffer);
+    if (host_entry == NULL) {
+        perror("gethostbyname failed");
+        return 1;
+    }
+
+    // 將 IP 地址從二進制轉為文本
+    IPbuffer = inet_ntoa(*((struct in_addr*)host_entry->h_addr_list[0]));
+    if (IPbuffer == NULL) {
+        perror("inet_ntoa failed");
+        return 1;
+    }
+
+    // 打印主機名和 IP 地址
+    printf("當前主機名: %s\n", hostbuffer);
+    printf("當前主機 IP: %s\n", IPbuffer);
+
+    return 0;
+}
