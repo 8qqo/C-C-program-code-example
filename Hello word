@@ -1,7 +1,17 @@
+//Under is c++ language
 #include <iostream>
 
 using namespace std;
 
 int main(){
     cout>>"hello word";
+    return 0;
+}
+
+//under is c language
+#include <stdio.h>
+
+int main(){
+    printf("hello word");
+    return 0;
 }
