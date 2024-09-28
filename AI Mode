@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>  // For strcmp
 
 // 定義矩陣結構
 typedef struct {
@@ -78,6 +79,20 @@ int main() {
 
     // 訓練模型
     train(X, y, W, &b, 0.01, 1000);
+
+    // 等待用戶輸入
+    char input[10];
+    printf("輸入 'clear' 清除結果並結束程序: ");
+    fgets(input, 10, stdin);
+
+    // 檢查用戶是否輸入 "clear"
+    if (strcmp(input, "clear\n") == 0) {
+        // 清除終端輸出
+        system("clear");
+
+        // 結束程序
+        printf("已清除結果並結束程序。\n");
+    }
 
     // 釋放內存
     for (int i = 0; i < rows; i++) {
