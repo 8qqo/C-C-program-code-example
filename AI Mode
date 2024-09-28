@@ -1,0 +1,93 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+// 定義矩陣結構
+typedef struct {
+    int rows;
+    int cols;
+    double** data;
+} Matrix;
+
+// 初始化矩陣
+Matrix* create_matrix(int rows, int cols) {
+    Matrix* mat = (Matrix*)malloc(sizeof(Matrix));
+    mat->rows = rows;
+    mat->cols = cols;
+    mat->data = (double**)malloc(rows * sizeof(double*));
+    for (int i = 0; i < rows; i++) {
+        mat->data[i] = (double*)malloc(cols * sizeof(double));
+    }
+    return mat;
+}
+
+// 前向傳播：計算預測值 y_pred = X * W + b
+double forward(Matrix* X, Matrix* W, double* b) {
+    double result = 0.0;
+    for (int i = 0; i < X->rows; i++) {
+        result += X->data[i][0] * W->data[i][0];
+    }
+    return result + *b;
+}
+
+// 均方誤差 (MSE) 損失函數
+double mse(double y_true, double y_pred) {
+    return (y_true - y_pred) * (y_true - y_pred);
+}
+
+// 更新權重和偏置：W -= learning_rate * gradient, b -= learning_rate * gradient
+void update_weights(Matrix* W, double* b, double learning_rate, double gradient) {
+    for (int i = 0; i < W->rows; i++) {
+        W->data[i][0] -= learning_rate * gradient;
+    }
+    *b -= learning_rate * gradient;
+}
+
+// 訓練過程
+void train(Matrix* X, double* y, Matrix* W, double* b, double learning_rate, int epochs) {
+    for (int epoch = 0; epoch < epochs; epoch++) {
+        double total_loss = 0.0;
+        for (int i = 0; i < X->rows; i++) {
+            double y_pred = forward(X, W, b);
+            double loss = mse(y[i], y_pred);
+            total_loss += loss;
+            double gradient = 2 * (y_pred - y[i]);
+            update_weights(W, b, learning_rate, gradient);
+        }
+        printf("Epoch %d: Loss = %f\n", epoch, total_loss / X->rows);
+    }
+}
+
+// 主函數
+int main() {
+    // 初始化數據
+    int rows = 2;
+    Matrix* X = create_matrix(rows, 1);  // 輸入數據
+    Matrix* W = create_matrix(rows, 1);  // 權重
+    double b = 0.0;  // 偏置
+
+    // 設定輸入數據
+    X->data[0][0] = 1.0;
+    X->data[1][0] = 2.0;
+
+    // 初始化權重
+    W->data[0][0] = 0.1;
+    W->data[1][0] = 0.1;
+
+    // 標籤數據
+    double y[2] = {2.0, 3.0};
+
+    // 訓練模型
+    train(X, y, W, &b, 0.01, 1000);
+
+    // 釋放內存
+    for (int i = 0; i < rows; i++) {
+        free(X->data[i]);
+        free(W->data[i]);
+    }
+    free(X->data);
+    free(W->data);
+    free(X);
+    free(W);
+
+    return 0;
+}
