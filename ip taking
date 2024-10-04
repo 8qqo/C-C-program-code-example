@@ -8,29 +8,29 @@ int main() {
     char *IPbuffer;
     struct hostent *host_entry;
 
-    // 獲取本地主機名
+    // Get local host name
     if (gethostname(hostbuffer, sizeof(hostbuffer)) == -1) {
         perror("gethostname failed");
         return 1;
     }
 
-    // 使用主機名獲取 host_entry 结構體
+    // Get the host_entry structure using the host name
     host_entry = gethostbyname(hostbuffer);
     if (host_entry == NULL) {
         perror("gethostbyname failed");
         return 1;
     }
 
-    // 將 IP 地址從二進制轉為文本
+    // Convert IP address from binary to tsest
     IPbuffer = inet_ntoa(*((struct in_addr*)host_entry->h_addr_list[0]));
     if (IPbuffer == NULL) {
         perror("inet_ntoa failed");
         return 1;
     }
 
-    // 打印主機名和 IP 地址
+    // Printf the hostname andIP address
     printf("當前主機名: %s\n", hostbuffer);
-    printf("當前主機 IP: %s\n", IPbuffer);
+    printf("當前主機IP: %s\n", IPbuffer);
 
     return 0;
 }
