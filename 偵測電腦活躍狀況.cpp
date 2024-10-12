@@ -1,5 +1,6 @@
 #include <iostream>
 #include <windows.h>
+using namespace std;
 
 void displayBinary(DWORD value) {
     for (int i = 31; i >= 0; --i) {
@@ -9,7 +10,7 @@ void displayBinary(DWORD value) {
 
 int main() {
     while (true) {
-        // ¿Ú®˙CPU®œ•Œ≤v
+        // Áç≤ÂèñCPU‰ΩøÁî®Áéá
         PDH_HQUERY query;
         PDH_HCOUNTER counter;
         PdhOpenQuery(NULL, 0, &query);
@@ -20,19 +21,19 @@ int main() {
         PDH_FMT_COUNTERVALUE value;
         PdhGetFormattedCounterValue(counter, PDH_FMT_LONG, NULL, &value);
 
-        // ≈„•‹CPU®œ•Œ≤v
-        std::cout << "CPU ®œ•Œ≤v: ";
+        // È°ØÁ§∫CPU‰ΩøÁî®Áéá
+        cout << "CPU ‰ΩøÁî®Áéá: ";
         displayBinary(static_cast<DWORD>(value.longValue));
-        std::cout << std::endl << std::endl;
+        cout << std::endl << std::endl;
 
-        // ¿Ú®˙CPUÆ÷§ﬂº∆
+        // Áç≤ÂèñCPUÊ†∏ÂøÉÊï∏
         SYSTEM_INFO sysInfo;
         GetSystemInfo(&sysInfo);
 
-        // ≈„•‹CPUÆ÷§ﬂº∆
-        std::cout << "CPU Æ÷§ﬂº∆: ";
+        // È°ØÁ§∫CPUÊ†∏ÂøÉÊï∏
+        cout << "CPU Ê†∏ÂøÉÊï∏: ";
         displayBinary(static_cast<DWORD>(sysInfo.dwNumberOfProcessors));
-        std::cout << std::endl << std::endl;
+         cout << std::endl << std::endl;
     }
 
     return 0;
