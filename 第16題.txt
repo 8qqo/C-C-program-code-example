@@ -1,0 +1,80 @@
+#include <iostream>
+#include <cmath>
+#include <iomanip> // 用於控制輸出格式
+
+using namespace std;
+
+// 計算兩點之間的距離的平方
+double distanceSquare(int x1, int y1, int x2, int y2) {
+    return pow(x2 - x1, 2) + pow(y2 - y1, 2);
+}
+
+// 計算中垂線的斜率
+double perpendicularSlope(int x1, int y1, int x2, int y2) {
+    // 中點座標
+    double mx = (x1 + x2) / 2.0;
+    double my = (y1 + y2) / 2.0;
+
+    // 原線段的斜率
+    double slope = static_cast<double>(y2 - y1) / (x2 - x1);
+
+    // 垂直平分線的斜率
+    return -1.0 / slope;
+}
+
+// 計算圓心座標和半徑
+void calculateCircle(int x1, int y1, int x2, int y2, int x3, int y3,
+                     double& rx, double& ry, double& radius) {
+    // AB 中垂線的斜率
+    double slope1 = perpendicularSlope(x1, y1, x2, y2);
+    // BC 中垂線的斜率
+    double slope2 = perpendicularSlope(x2, y2, x3, y3);
+
+    // AB 中點座標
+    double mx1 = (x1 + x2) / 2.0;
+    double my1 = (y1 + y2) / 2.0;
+    // BC 中點座標
+    double mx2 = (x2 + x3) / 2.0;
+    double my2 = (y2 + y3) / 2.0;
+
+    // 解方程得到圓心座標
+    rx = ((my2 - my1) + slope1 * mx1 - slope2 * mx2) / (slope1 - slope2);
+    ry = my1 + slope1 * (rx - mx1);
+
+    // 計算半徑
+    radius = sqrt(distanceSquare(x1, y1, rx, ry));
+}
+
+int main() {
+    int x1, y1, x2, y2, x3, y3;
+    cin >> x1 >> y1 >> x2 >> y2 >> x3 >> y3;
+
+    double rx, ry, radius;
+    calculateCircle(x1, y1, x2, y2, x3, y3, rx, ry, radius);
+
+    // 格式化輸出結果，保留三位小數
+    cout << fixed << setprecision(3) << rx << " " << ry << " " << radius << endl;
+
+    return 0;
+}
+----------------------------------------------------------------------------------------
+
+計算中垂線的交點：對於給定的三個點 A(x1, y1), B(x2, y2), C(x3, y3)，我們需要計算 AB 和 BC 的中垂線的斜率，並求出它們的垂直平分線的方程。這些方程的交點將是圓的中心。
+
+計算圓的半徑：圓的半徑可以通過計算這三個點到圓心的距離來獲得。一般而言，可以選擇任意兩點之間的距離作為半徑。
+
+輸出結果：將計算得到的圓心座標和半徑進行格式化輸出，保留三位小數。
+解释：
+distanceSquare 函数：计算两点之间的距离的平方。
+perpendicularSlope 函数：计算两点连线的中垂线的斜率的负倒数。
+calculateCircle 函数：根据三个点的坐标计算圆的中心坐标和半径。
+main 函数：
+首先读取输入的三个点的坐标。
+调用 calculateCircle 函数计算圆的中心坐标和半径。
+使用 fixed 和 setprecision(3) 控制输出格式，确保输出结果保留三位小数。
+這段程式碼可以有效地找到通過三個不共線點的圓的中心座標和半徑，並按照題目要求進行格式化輸出。請將這段程式碼複製到 DEV C++ 中，編譯並運行，根據提示輸入測試數據來進行驗證。
+
+
+
+
+

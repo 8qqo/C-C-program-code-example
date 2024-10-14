@@ -1,0 +1,61 @@
+#include <iostream>
+using namespace std;
+
+bool isPrime(int n) {
+    // 負數、0 和 1 不是質數
+    if (n <= 1) {
+        return false;
+    }
+    
+    // 2 和 3 是質數
+    if (n <= 3) {
+        return true;
+    }
+    
+    // 排除偶數和 3 的倍數
+    if (n % 2 == 0 || n % 3 == 0) {
+        return false;
+    }
+    
+    // 以 6k ± 1 的方式檢查可能的因數
+    for (int i = 5; i * i <= n; i += 6) {
+        if (n % i == 0 || n % (i + 2) == 0) {
+            return false;
+        }
+    }
+    
+    return true;
+}
+
+int main() {
+    int number;
+    cout << "請輸入一個整數: ";
+    cin >> number;
+    
+    if (isPrime(number)) {
+        cout << number << "YES" << endl;
+    } else {
+        cout << number << " NO" << endl;
+    }
+    
+    return 0;
+}
+
+
+
+-----------------------------------------------------------------
+
+isPrime 函數：這個函數用來檢查一個數是否為質數。
+
+簡單方法的說明：
+isPrime 函數：
+
+先檢查數字是否小於等於 1，是的話返回 false，因為 1 和負數不是質數。
+從 2 開始一直檢查到 n-1，如果 n 能被其中任何一個數整除，返回 false。
+如果 n 不能被任何數整除，返回 true。
+main 函數：
+
+從用戶處讀取一個整數。
+使用 isPrime 函數檢查該數是否為質數並輸出結果。
+
+
