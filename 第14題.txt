@@ -1,0 +1,34 @@
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+// 函數原型，找出小於 N 的所有符合裝袋規則的數字
+vector<int> findEggNumbers(int N) {
+    vector<int> results;
+
+    for (int i = 1; i < N; ++i) {
+        if (i % 7 == 2 && i % 9 == 2 && i % 3 == 2) {
+            results.push_back(i);
+        }
+    }
+
+    return results;
+}
+
+int main() {
+    int N;
+
+    cout << "請輸入 N 的值: ";
+    cin >> N;
+
+    vector<int> validNumbers = findEggNumbers(N);
+
+    cout << "小於 " << N << " 的所有符合裝袋規則的數字有:" << endl;
+    for (size_t i = 0; i < validNumbers.size(); ++i) {
+        cout << validNumbers[i] << " ";
+    }
+    cout << endl;
+
+    return 0;
+}

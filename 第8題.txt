@@ -1,0 +1,34 @@
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+int main() {
+    int x, y;
+    const int radius = 100;
+
+    cout << "請輸入點的 x 座標: ";
+    cin >> x;
+    cout << "請輸入點的 y 座標: ";
+    cin >> y;
+
+    // 計算點 (x, y) 與圓心 (0, 0) 之間的距離平方
+    int distanceSquared = x * x + y * y;
+    int radiusSquared = radius * radius;
+
+    // 判斷是否在圓內或在圓上
+    if (distanceSquared <= radiusSquared) {
+        cout << "inside" << endl;
+    } else {
+        cout << "outside" << endl;
+    }
+
+    return 0;
+}
+
+--------------------------------------------------------------
+
+從使用者那裡讀取點的 x 和 y 座標。
+計算該點與圓心的距離的平方，這樣可以避免使用浮點數比較。
+將計算出的距離平方與半徑平方進行比較，判斷點是否在圓內或圓上。
+根據比較結果輸出 "inside" 或 "outside"。
