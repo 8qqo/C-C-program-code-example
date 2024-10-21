@@ -1,0 +1,33 @@
+#include <stdio.h>
+
+// 定義真值和假值
+#define TRUE 1
+#define FALSE 0
+
+// 打印真值表
+void print_truth_table() {
+    int A, B;
+
+    printf(" A | B |  NOT A | A AND B | A OR B | A implies B | A IFF B\n");
+    printf("-----------------------------------------------------------\n");
+
+    for (A = 0; A <= 1; A++) {
+        for (B = 0; B <= 1; B++) {
+            // 計算邏輯運算結果
+            int not_A = !A;
+            int and_result = A && B;
+            int or_result = A || B;
+            int implies_result = !A || B;
+            int iff_result = A == B;
+
+            // 打印每一行的結果
+            printf(" %d | %d |    %d   |    %d    |    %d   |      %d      |    %d\n",
+                   A, B, not_A, and_result, or_result, implies_result, iff_result);
+        }
+    }
+}
+
+int main() {
+    print_truth_table();
+    return 0;
+}
