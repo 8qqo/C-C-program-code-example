@@ -1,0 +1,50 @@
+#include <iostream>
+#include <iomanip> // 用於控制輸出格式
+using namespace std;
+
+int main() {
+    double height;
+    int gender;
+    
+    // 輸入身高和性別
+    cout << "請輸入身高(公分)和性別(1代表男性; 2代表女性): ";
+    cin >> height >> gender;
+    
+    // 計算標準體重
+    double standardWeight;
+    if (gender == 1) {
+        standardWeight = (height - 80) * 0.7;
+    } else if (gender == 2) {
+        standardWeight = (height - 70) * 0.6;
+    } else {
+        cout << "性別輸入錯誤，請輸入1代表男性或2代表女性。" << endl;
+        return 1; // 結束程式並返回錯誤代碼
+    }
+    
+    // 設置輸出格式，保留一位小數
+    cout << fixed << setprecision(1);
+    
+    // 輸出標準體重
+    cout << "標準體重是: " << standardWeight << " 公斤" << endl;
+    
+    return 0;
+}
+
+
+----------------------------------------------------------------------------------
+
+程式說明：
+引入標準輸入輸出庫和控制輸出格式的庫：
+
+#include <iostream> 用於標準輸入輸出。
+#include <iomanip> 用於控制輸出格式（小數點位數）。
+主函數：
+
+宣告變數 height（身高）和 gender（性別）。
+提示使用者輸入身高和性別，並讀取這些值。
+根據性別計算標準體重。
+如果性別為 1（男性），使用公式 (height - 80) * 0.7。
+如果性別為 2（女性），使用公式 (height - 70) * 0.6。
+如果輸入的性別不是 1 或 2，輸出錯誤訊息並結束程式。
+使用 fixed 和 setprecision(1) 來設置輸出格式，保留一位小數。
+輸出計算出的標準體重。

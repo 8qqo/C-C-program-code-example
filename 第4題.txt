@@ -1,0 +1,32 @@
+#include <iostream>
+#include <sstream> // 用於字串分割
+using namespace std;
+
+bool isTriangle(int a, int b, int c) {
+    // 判斷三個邊是否能構成三角形
+    return (a + b > c) && (a + c > b) && (b + c > a);
+}
+
+int main() {
+    string input;
+    cout << "請輸入三個邊長 (以空白隔開): ";
+    getline(cin, input); // 讀取整行輸入
+
+    stringstream ss(input); // 將輸入字串轉換為 stringstream
+    int a, b, c;
+    ss >> a >> b >> c; // 從 stringstream 中提取三個整數
+
+    if (isTriangle(a, b, c)) {
+        cout << "fit" << endl;
+    } else {
+        cout << "unfit" << endl;
+    }
+
+    return 0;
+}
+-----------------------------------------------------------------------------
+
+這個 C++ 程式的目的是判斷三個給定的邊長是否可以構成一個三角形。以下是該程式的主要部分的解釋：
+
+isTriangle 函數：這個函數接收三個整數作為參數，代表三個邊長。它會檢查這三個邊長是否可以構成一個三角形。根據三角形的性質，任意兩邊之和必須大於第三邊。因此，這個函數會檢查這三個條件是否都成立，如果都成立，則返回 true，表示可以構成三角形；否則返回 false。
+main 函數：這個函數首先讀取使用者的輸入，這應該是一行包含三個整數的字串，整數之間以空格隔開。然後，它使用 stringstream 來分割這個字串，並提取出三個整數。接著，它呼叫 isTriangle 函數來檢查這三個邊長是否可以構成三角形，並將結果輸出到控制台。
