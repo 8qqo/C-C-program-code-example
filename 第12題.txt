@@ -1,0 +1,59 @@
+#include <iostream>
+#include <iomanip> // 包含此頭文件以使用 setw 和 setfill
+
+using namespace std;
+
+int main() {
+    int number;
+    int originalNumber, encryptedNumber;
+    int digit1, digit2, digit3, digit4;
+    int temp;
+
+    // 讀取四位數字
+    cout << "請輸入一組四位數字: ";
+    cin >> number;
+
+    // 原始數字存儲，用於後續交換操作
+    originalNumber = number;
+
+    // 加密每個位數並進行交換
+    // 取出每個位數
+    digit1 = number / 1000;
+    number %= 1000;
+    digit2 = number / 100;
+    number %= 100;
+    digit3 = number / 10;
+    digit4 = number % 10;
+
+    // 加密操作
+    digit1 = (digit1 + 7) % 10;
+    digit2 = (digit2 + 7) % 10;
+    digit3 = (digit3 + 7) % 10;
+    digit4 = (digit4 + 7) % 10;
+
+    // 交換操作
+    // 第一個位數和第三個位數交換
+    temp = digit1;
+    digit1 = digit3;
+    digit3 = temp;
+
+    // 第二個位數和第四個位數交換
+    temp = digit2;
+    digit2 = digit4;
+    digit4 = temp;
+
+    // 構建加密後的數字
+    encryptedNumber = digit1 * 1000 + digit2 * 100 + digit3 * 10 + digit4;
+
+    // 輸出加密後的結果，確保四位數的格式（包括可能的前導零）
+    cout << "加密後的結果為: " << setw(4) << setfill('0') << encryptedNumber << endl;
+
+    return 0;
+}
+
+-----------------------------------------------------------------------------------------------
+
+
+使用 setw(4) 設置輸出寬度為 4 位，確保數字顯示為四位數。
+使用 setfill('0') 設置填充字符為 '0'，以填充可能的前導零。
+確保輸出時即使數字小於四位數，也會以前導零的形式顯示。

@@ -1,0 +1,84 @@
+#include <iostream>
+#include <iomanip> // 用於控制輸出格式
+using namespace std;
+
+double calculateSummerBill(int usage) {
+    double bill = 0.0;
+    if (usage > 700) {
+        bill += (usage - 700) * 5.63;
+        usage = 700;
+    }
+    if (usage > 500) {
+        bill += (usage - 500) * 4.97;
+        usage = 500;
+    }
+    if (usage > 330) {
+        bill += (usage - 330) * 4.39;
+        usage = 330;
+    }
+    if (usage > 120) {
+        bill += (usage - 120) * 3.02;
+        usage = 120;
+    }
+    bill += usage * 2.10;
+    return bill;
+}
+
+double calculateNonSummerBill(int usage) {
+    double bill = 0.0;
+    if (usage > 700) {
+        bill += (usage - 700) * 4.50;
+        usage = 700;
+    }
+    if (usage > 500) {
+        bill += (usage - 500) * 4.01;
+        usage = 500;
+    }
+    if (usage > 330) {
+        bill += (usage - 330) * 3.61;
+        usage = 330;
+    }
+    if (usage > 120) {
+        bill += (usage - 120) * 2.68;
+        usage = 120;
+    }
+    bill += usage * 2.10;
+    return bill;
+}
+
+int main() {
+    int usage;
+    cout << "請輸入使用度數: ";
+    cin >> usage;
+
+    double summerBill = calculateSummerBill(usage);
+    double nonSummerBill = calculateNonSummerBill(usage);
+
+    cout << fixed << setprecision(2);
+    cout << "夏月電費: " << summerBill << " 元" << endl;
+    cout << "非夏月電費: " << nonSummerBill << " 元" << endl;
+
+    return 0;
+}
+
+----------------------------------------------------------------------------------
+
+程式說明：
+引入標準輸入輸出庫和控制輸出格式的庫：
+
+#include <iostream> 用於標準輸入輸出。
+#include <iomanip> 用於控制輸出格式（小數點位數）。
+計算夏月電費的函數：
+
+calculateSummerBill 函數根據使用度數計算夏月電費。
+根據不同的度數範圍計算電費，使用 if 語句從最高度數區間開始計算，依次往下。
+計算非夏月電費的函數：
+
+calculateNonSummerBill 函數根據使用度數計算非夏月電費。
+和 calculateSummerBill 函數類似，不同的是各度數範圍的單價不同。
+主函數：
+
+從使用者處讀取一個正整數表示的使用度數。
+調用 calculateSummerBill 和 calculateNonSummerBill 函數分別計算夏月和非夏月電費。
+使用 fixed 和 setprecision(2) 來設置輸出格式，保留兩位小數。
+輸出夏月和非夏月的電費。
